@@ -1,3 +1,5 @@
+import QuoteForm from "@/components/QuoteForm";
+
 const services = [
   ["Tables & Chairs", "Mesas y sillas"],
   ["Linens", "Mantelería"],
@@ -66,18 +68,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section shell quote" id="quote">
-        <div>
-          <p className="eyebrow dark">LET&apos;S CELEBRATE • CELEBREMOS</p>
-          <h2>Tell us about your event.</h2>
-          <p>
-            We&apos;re building a simple bilingual quote experience here so customers can choose
-            what they need without working through a long form.
-          </p>
+      <section className="quoteSection" id="quote">
+        <div className="shell">
+          <QuoteForm />
         </div>
-        <a className="button" href="https://www.instagram.com/decoracionescocos" target="_blank" rel="noreferrer">
-          Visit Instagram
-        </a>
+      </section>
+
+      <section className="instagramStrip">
+        <div className="shell instagramInner">
+          <div>
+            <p className="eyebrow dark">MORE INSPIRATION • MÁS INSPIRACIÓN</p>
+            <h3>See more celebrations on Instagram.</h3>
+          </div>
+          <a className="button" href="https://www.instagram.com/decoracionescocos" target="_blank" rel="noreferrer">
+            Visit Instagram
+          </a>
+        </div>
       </section>
 
       <footer>
