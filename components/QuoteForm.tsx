@@ -2,7 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 
-const chairTypes = ["Regular", "Resin / Resina", "Chiavari"];
+const chairTypes = ["Regular", "Resina", "Chiavari"];
 const chiavariColors = ["Clear", "White", "Silver", "Gold"];
 const canopySizes = ["14 x 20", "20 x 20", "20 x 30", "20 x 40", "30 x 30", "30 x 40", "30 x 50", "30 x 60", "Unknown / Measure"];
 const serviceOptions = [
@@ -29,6 +29,9 @@ export default function QuoteForm() {
   const hasLinens = selectedServices.includes("Linens / Manteles");
   const hasCanopy = selectedServices.some((item) => item.startsWith("Canopy"));
   const hasDishware = selectedServices.includes("Dishware / Loza");
+  const hasCenterpieces = selectedServices.includes("Centerpieces / Centros de mesa");
+  const hasCenterTable = selectedServices.includes("Center table decor / Mesa principal");
+  const hasCandyTable = selectedServices.includes("Candy table / Mesa de dulces");
 
   const serviceCount = useMemo(() => selectedServices.length, [selectedServices]);
 
@@ -48,11 +51,10 @@ export default function QuoteForm() {
   if (submitted) {
     return (
       <div className="quoteSuccess" role="status">
-        <p className="eyebrow dark">QUOTE DETAILS READY • DATOS LISTOS</p>
-        <h3>Thank you — your event details are organized.</h3>
+        <p className="eyebrow dark">REVIEW MODE • MODO DE REVISIÓN</p>
+        <h3>Your selections are filled in.</h3>
         <p>
-          The website form itself is ready. We still need to connect the final Send button to
-          Decoraciones Coco&apos;s preferred inbox or messaging destination before customers can submit it.
+          This website version does not send the request yet. The original form says to send a message once completed, so the final delivery method still needs to be connected before this replaces that form.
         </p>
         <button className="button" type="button" onClick={() => setSubmitted(false)}>
           Edit Request / Editar solicitud
@@ -65,13 +67,13 @@ export default function QuoteForm() {
     <form className="quoteForm" onSubmit={handleSubmit}>
       <div className="formIntro">
         <div>
-          <p className="eyebrow dark">REQUEST A QUOTE • SOLICITA UNA COTIZACIÓN</p>
-          <h2>Tell us about your event.</h2>
+          <p className="eyebrow dark">DECORACIONES COCO&apos;S</p>
+          <h2>Quote request / Solicitud de cotización</h2>
         </div>
         <p>
-          Fill in what you know. We&apos;ll use these details to prepare your event quote.
+          Please fill out this form and we will get back to you with a price. Thank you for your patience.
           <br />
-          Llena la información que tengas para preparar tu cotización.
+          Por favor de llenar esta para un precio. Gracias por su paciencia.
         </p>
       </div>
 
@@ -79,31 +81,30 @@ export default function QuoteForm() {
         <legend>1. Event details / Detalles del evento</legend>
         <div className="fieldGrid">
           <label>
-            <FieldLabel>Name / Nombre *</FieldLabel>
+            <FieldLabel>Nombre / Name *</FieldLabel>
             <input name="name" autoComplete="name" required />
           </label>
           <label>
-            <FieldLabel>Phone number / Número de teléfono *</FieldLabel>
+            <FieldLabel>Número de Teléfono / Phone Number *</FieldLabel>
             <input name="phone" type="tel" autoComplete="tel" required />
           </label>
           <label className="wideField">
-            <FieldLabel>Event address / Domicilio del evento</FieldLabel>
+            <FieldLabel>Domicilio del Evento / Event Address</FieldLabel>
             <input name="address" autoComplete="street-address" />
           </label>
           <label>
-            <FieldLabel>Date / Fecha *</FieldLabel>
+            <FieldLabel>Fecha / Date *</FieldLabel>
             <input name="date" type="date" required />
           </label>
           <label>
-            <FieldLabel>Theme / Tema</FieldLabel>
-            <input name="theme" placeholder="Colors, theme, occasion..." />
+            <FieldLabel>Tema / Theme</FieldLabel>
+            <input name="theme" />
           </label>
         </div>
       </fieldset>
 
       <fieldset className="formSection">
-        <legend>2. What do you need? / ¿Qué necesitas?</legend>
-        <p className="sectionHint">Choose all that apply. Selecciona todo lo que necesites.</p>
+        <legend>2. Services / Servicios</legend>
         <div className="choiceGrid">
           {serviceOptions.map((service) => {
             const checked = selectedServices.includes(service);
@@ -123,10 +124,10 @@ export default function QuoteForm() {
       </fieldset>
 
       <fieldset className="formSection">
-        <legend>3. Rental details / Detalles de renta</legend>
+        <legend>3. Tables, chairs & linens / Mesas, sillas y manteles</legend>
         <div className="fieldGrid">
           <label>
-            <FieldLabel>Table type / Tipo de mesa</FieldLabel>
+            <FieldLabel>Table / Mesa</FieldLabel>
             <select name="tableType" defaultValue="">
               <option value="">Select / Selecciona</option>
               <option>Round — 8 people</option>
@@ -142,30 +143,36 @@ export default function QuoteForm() {
           {hasChairs && (
             <>
               <label>
-                <FieldLabel>Chair type / Tipo de silla</FieldLabel>
+                <FieldLabel>Chairs / Sillas</FieldLabel>
                 <select name="chairType" defaultValue="">
                   <option value="">Select / Selecciona</option>
                   {chairTypes.map((type) => <option key={type}>{type}</option>)}
                 </select>
               </label>
               <label>
-                <FieldLabel>Number of chairs / # de sillas</FieldLabel>
+                <FieldLabel># Chairs / # Sillas</FieldLabel>
                 <input name="chairQuantity" type="number" min="0" inputMode="numeric" />
               </label>
               <label>
-                <FieldLabel>Chiavari color / Color Chiavari</FieldLabel>
+                <FieldLabel>Chiavari color</FieldLabel>
                 <select name="chiavariColor" defaultValue="">
-                  <option value="">If applicable / Si aplica</option>
+                  <option value="">Select / Selecciona</option>
                   {chiavariColors.map((color) => <option key={color}>{color}</option>)}
                 </select>
               </label>
               <label>
-                <FieldLabel>Special seating / Sillas especiales</FieldLabel>
-                <select name="specialChair" defaultValue="">
-                  <option value="">None / Ninguna</option>
-                  <option>Royal chair — Gold</option>
-                  <option>Royal chair — Silver</option>
-                  <option>Kid chairs — Regular</option>
+                <FieldLabel>Silla de Trono / Royal Chair</FieldLabel>
+                <select name="royalChair" defaultValue="">
+                  <option value="">Select / Selecciona</option>
+                  <option>Gold</option>
+                  <option>Silver</option>
+                </select>
+              </label>
+              <label>
+                <FieldLabel>Silla de Niños / Kid Chairs</FieldLabel>
+                <select name="kidChair" defaultValue="">
+                  <option value="">Select / Selecciona</option>
+                  <option>Regular</option>
                 </select>
               </label>
             </>
@@ -174,7 +181,7 @@ export default function QuoteForm() {
           {hasLinens && (
             <>
               <label>
-                <FieldLabel>Table cloth type / Tipo de mantel</FieldLabel>
+                <FieldLabel>Tipo de Mantel / Type of Table Cloth</FieldLabel>
                 <select name="linenType" defaultValue="">
                   <option value="">Select / Selecciona</option>
                   <option>Round</option>
@@ -182,23 +189,52 @@ export default function QuoteForm() {
                 </select>
               </label>
               <label>
-                <FieldLabel>Color(s) / Color(es)</FieldLabel>
+                <FieldLabel>Color/es / Color/s</FieldLabel>
                 <input name="linenColors" />
               </label>
               <label>
-                <FieldLabel>Number of linens / # de manteles</FieldLabel>
+                <FieldLabel># Manteles / # of Table Cloths</FieldLabel>
                 <input name="linenQuantity" type="number" min="0" inputMode="numeric" />
               </label>
               <label>
-                <FieldLabel>Linen style / Estilo</FieldLabel>
+                <FieldLabel>Style / Estilo</FieldLabel>
                 <select name="linenStyle" defaultValue="">
                   <option value="">Select / Selecciona</option>
                   <option>Mantel only</option>
-                  <option>Mantel with Diamante</option>
-                  <option>Mantel with Runner</option>
+                  <option>Mantel w/ Diamante</option>
+                  <option>Mantel w/ Runner</option>
                 </select>
               </label>
+              <div className="wideField formPriceNote">
+                <strong>Pricing shown in the original form</strong>
+                <p>Round: Mantel only $12 · w/ Diamante $15 · w/ Runner $15</p>
+                <p>Rectangular: Mantel only $8 · w/ Diamante $12 · w/ Runner $12</p>
+              </div>
             </>
+          )}
+        </div>
+      </fieldset>
+
+      <fieldset className="formSection">
+        <legend>4. Decor, canopy & dishware / Decoración, carpa y loza</legend>
+        <div className="fieldGrid">
+          {hasCenterpieces && (
+            <label className="wideField">
+              <FieldLabel>Centro de Mesa / Centerpieces — reference photo</FieldLabel>
+              <input type="file" name="centerpiecePhoto" accept="image/*" />
+            </label>
+          )}
+          {hasCenterTable && (
+            <label className="wideField">
+              <FieldLabel>Mesa Principal / Center Table Decor — reference photo</FieldLabel>
+              <input type="file" name="centerTablePhoto" accept="image/*" />
+            </label>
+          )}
+          {hasCandyTable && (
+            <label className="wideField">
+              <FieldLabel>Mesa de Dulces / Candy Table — reference photo</FieldLabel>
+              <input type="file" name="candyTablePhoto" accept="image/*" />
+            </label>
           )}
 
           {hasCanopy && (
@@ -213,13 +249,8 @@ export default function QuoteForm() {
 
           {hasDishware && (
             <div className="wideField compactChoices">
-              <FieldLabel>Dishware set / Loza set</FieldLabel>
-              {[
-                "Charger",
-                "Napkin / Servilleta",
-                "Wineglass / Copa",
-                "Food plate / Plato de comida",
-              ].map((item) => (
+              <FieldLabel>Loza Set</FieldLabel>
+              {["Charger", "Servilleta / Napkin", "Copa / Wineglass", "Plato de comida / Food Plate"].map((item) => (
                 <label key={item} className="inlineCheck">
                   <input type="checkbox" name="dishware" value={item} /> {item}
                 </label>
@@ -230,27 +261,18 @@ export default function QuoteForm() {
       </fieldset>
 
       <fieldset className="formSection">
-        <legend>4. Inspiration & notes / Inspiración y notas</legend>
-        <div className="fieldGrid">
-          <label className="wideField">
-            <FieldLabel>Questions, comments, concerns / Preguntas o comentarios</FieldLabel>
-            <textarea name="notes" rows={5} placeholder="Tell us anything else we should know..." />
-          </label>
-          <div className="wideField uploadNotice">
-            <strong>Inspiration photos / Fotos de inspiración</strong>
-            <p>
-              Photo uploads will be enabled when the final quote-delivery system is connected.
-              For now, customers can mention what they want here and share images during follow-up.
-            </p>
-          </div>
-        </div>
+        <legend>5. Questions, Comments, Concerns</legend>
+        <label className="wideField">
+          <FieldLabel>Questions, Comments, Concerns</FieldLabel>
+          <textarea name="notes" rows={5} />
+        </label>
       </fieldset>
 
       <div className="formSubmitRow">
         <p>
-          No request is sent yet — this button currently lets us test the finished customer experience.
+          This preview does not send the request yet. File selections also stay on this device until a delivery method is connected.
         </p>
-        <button className="button" type="submit">Review Request / Revisar solicitud</button>
+        <button className="button" type="submit">Review / Revisar</button>
       </div>
     </form>
   );
