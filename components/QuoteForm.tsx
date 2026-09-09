@@ -1,7 +1,8 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
+const officialFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScrJyqjbnvjDBe1GNzFUgROKHkJH6PAhpwxXQM-hP_o8BpFNw/viewform";
 const chairTypes = ["Regular", "Resina", "Chiavari"];
 const chiavariColors = ["Clear", "White", "Silver", "Gold"];
 const canopySizes = ["14 x 20", "20 x 20", "20 x 30", "20 x 40", "30 x 30", "30 x 40", "30 x 50", "30 x 60", "Unknown / Measure"];
@@ -23,7 +24,6 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
 
 export default function QuoteForm() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
-  const [submitted, setSubmitted] = useState(false);
 
   const hasChairs = selectedServices.includes("Chairs / Sillas");
   const hasLinens = selectedServices.includes("Linens / Manteles");
@@ -43,58 +43,48 @@ export default function QuoteForm() {
     );
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-  }
-
-  if (submitted) {
-    return (
-      <div className="quoteSuccess" role="status">
-        <p className="eyebrow dark">REVIEW MODE • MODO DE REVISIÓN</p>
-        <h3>Your selections are filled in.</h3>
-        <p>
-          This website version does not send the request yet. The original form says to send a message once completed, so the final delivery method still needs to be connected before this replaces that form.
-        </p>
-        <button className="button" type="button" onClick={() => setSubmitted(false)}>
-          Edit Request / Editar solicitud
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <form className="quoteForm" onSubmit={handleSubmit}>
+    <div className="quoteForm">
       <div className="formIntro">
         <div>
           <p className="eyebrow dark">DECORACIONES COCO&apos;S</p>
           <h2>Quote request / Solicitud de cotización</h2>
         </div>
         <p>
-          Please fill out this form and we will get back to you with a price. Thank you for your patience.
+          Use this page to review the available options. The official Google Form you provided is still the actual submission destination.
           <br />
-          Por favor de llenar esta para un precio. Gracias por su paciencia.
+          Usa esta página para revisar las opciones. El formulario oficial de Google sigue siendo donde se envía la solicitud.
         </p>
+      </div>
+
+      <div className="submissionNotice">
+        <strong>Where does the request go?</strong>
+        <p>
+          Right now, a request is only submitted when the customer completes the original Decoraciones Coco&apos;s Google Form. This website does not send customer data to a separate inbox yet.
+        </p>
+        <a className="button" href={officialFormUrl} target="_blank" rel="noreferrer">
+          Open Official Quote Form / Abrir formulario oficial
+        </a>
       </div>
 
       <fieldset className="formSection">
         <legend>1. Event details / Detalles del evento</legend>
         <div className="fieldGrid">
           <label>
-            <FieldLabel>Nombre / Name *</FieldLabel>
-            <input name="name" autoComplete="name" required />
+            <FieldLabel>Nombre / Name</FieldLabel>
+            <input name="name" autoComplete="name" />
           </label>
           <label>
-            <FieldLabel>Número de Teléfono / Phone Number *</FieldLabel>
-            <input name="phone" type="tel" autoComplete="tel" required />
+            <FieldLabel>Número de Teléfono / Phone Number</FieldLabel>
+            <input name="phone" type="tel" autoComplete="tel" />
           </label>
           <label className="wideField">
             <FieldLabel>Domicilio del Evento / Event Address</FieldLabel>
             <input name="address" autoComplete="street-address" />
           </label>
           <label>
-            <FieldLabel>Fecha / Date *</FieldLabel>
-            <input name="date" type="date" required />
+            <FieldLabel>Fecha / Date</FieldLabel>
+            <input name="date" type="date" />
           </label>
           <label>
             <FieldLabel>Tema / Theme</FieldLabel>
@@ -270,10 +260,12 @@ export default function QuoteForm() {
 
       <div className="formSubmitRow">
         <p>
-          This preview does not send the request yet. File selections also stay on this device until a delivery method is connected.
+          The fields above are interactive for planning, but they are not transmitted from this static GitHub Pages site. Use the official form to actually send a request.
         </p>
-        <button className="button" type="submit">Review / Revisar</button>
+        <a className="button" href={officialFormUrl} target="_blank" rel="noreferrer">
+          Submit Through Official Form / Enviar por formulario oficial
+        </a>
       </div>
-    </form>
+    </div>
   );
 }
