@@ -28,7 +28,6 @@ export default function Home() {
           <p>Decoraciones de todo tipo de eventos.</p>
           <div className="heroActions">
             <a className="button" href="#quote">Quote request / Solicitud de cotización</a>
-            <a className="button secondary" href="#photos">See Photos / Ver fotos</a>
           </div>
         </div>
       </section>
