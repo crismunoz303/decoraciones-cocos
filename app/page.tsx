@@ -61,12 +61,13 @@ export default function Home() {
         <h2>Available selections.</h2>
         <div className="detailGrid">
           {serviceGroups.map((group) => (
-            <article className="detailCard" key={group.title}>
+            <a className="detailCard detailCardLink" href="#quote" key={group.title}>
               <h3>{group.title}</h3>
               <ul>
                 {group.items.map((item) => <li key={item}>{item}</li>)}
               </ul>
-            </article>
+              <span className="cardAction">Choose in quote form →</span>
+            </a>
           ))}
         </div>
       </section>
@@ -78,7 +79,7 @@ export default function Home() {
             <h2>Color options listed in the form.</h2>
           </div>
           <div className="chipRow">
-            {chiavariColors.map((color) => <span className="optionChip" key={color}>{color}</span>)}
+            {chiavariColors.map((color) => <a className="optionChip" href="#quote" key={color}>{color}</a>)}
           </div>
         </div>
       </section>
@@ -87,18 +88,20 @@ export default function Home() {
         <p className="eyebrow dark">TABLE CLOTH PRICING • PRECIOS DE MANTELES</p>
         <h2>Pricing shown in the original form.</h2>
         <div className="pricingGrid">
-          <article className="priceCard">
+          <a className="priceCard priceCardLink" href="#quote">
             <h3>Round / Redondo</h3>
             <div><span>Mantel only</span><strong>$12</strong></div>
             <div><span>Mantel w/ Diamante</span><strong>$15</strong></div>
             <div><span>Mantel w/ Runner</span><strong>$15</strong></div>
-          </article>
-          <article className="priceCard">
+            <span className="cardAction">Add to quote →</span>
+          </a>
+          <a className="priceCard priceCardLink" href="#quote">
             <h3>Rectangular</h3>
             <div><span>Mantel only</span><strong>$8</strong></div>
             <div><span>Mantel w/ Diamante</span><strong>$12</strong></div>
             <div><span>Mantel w/ Runner</span><strong>$12</strong></div>
-          </article>
+            <span className="cardAction">Add to quote →</span>
+          </a>
         </div>
       </section>
 
@@ -109,7 +112,7 @@ export default function Home() {
         </div>
         <div className="sizeGrid">
           {["14 x 20", "20 x 20", "20 x 30", "20 x 40", "30 x 30", "30 x 40", "30 x 50", "30 x 60", "Unknown / Measure"].map((size) => (
-            <span key={size}>{size}</span>
+            <a href="#quote" key={size}>{size}</a>
           ))}
         </div>
       </section>
