@@ -36,6 +36,12 @@ h3 { font-family: Georgia, serif; }
 .buttonGhost { background: transparent; border-color: rgba(255,255,255,.6); }
 .buttonSmall { min-height: 40px; padding-inline: 18px; }
 
+.photoSection { padding: 90px 0; background: var(--cream); border-bottom: 1px solid var(--line); }
+.photoGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 36px; }
+.photoCard { margin: 0; overflow: hidden; background: white; border: 1px solid var(--line); }
+.photoCard img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; image-rendering: auto; }
+.photoCard figcaption { padding: 14px 16px; color: var(--muted); font-size: .9rem; }
+
 .section { padding-block: 100px; }
 .detailGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 42px; }
 .detailCard { border: 1px solid var(--line); background: white; padding: 26px; min-height: 240px; }
@@ -106,8 +112,8 @@ footer { border-top: 1px solid var(--line); }
   .navLinks > a:not(.button) { display: none; }
   .hero { min-height: 72vh; }
   .heroContent { padding: 72px 0; }
-  .section, .quoteSection { padding-block: 76px; }
-  .detailGrid { grid-template-columns: 1fr 1fr; }
+  .section, .quoteSection, .photoSection { padding-block: 76px; }
+  .photoGrid, .detailGrid { grid-template-columns: 1fr 1fr; }
   .optionSplit, .canopySection, .formIntro { grid-template-columns: 1fr; gap: 26px; }
   .pricingGrid { grid-template-columns: 1fr; }
   .choiceGrid { grid-template-columns: 1fr 1fr; }
@@ -116,9 +122,10 @@ footer { border-top: 1px solid var(--line); }
 }
 
 @media (max-width: 520px) {
-  .fieldGrid, .detailGrid, .choiceGrid, .compactChoices, .sizeGrid, .chipRow { grid-template-columns: 1fr; }
+  .fieldGrid, .photoGrid, .detailGrid, .choiceGrid, .compactChoices, .sizeGrid, .chipRow { grid-template-columns: 1fr; }
   .wideField, .compactChoices .fieldLabel { grid-column: auto; }
   .quoteForm { padding-inline: 18px; }
   .detailCard { min-height: 0; }
+  .photoCard img { aspect-ratio: 5 / 4; }
   .footerInner { align-items: flex-start; justify-content: center; flex-direction: column; gap: 8px; }
 }
